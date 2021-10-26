@@ -2,6 +2,12 @@ import './App.css';
 import {useState, useEffect} from "react";
 
 function App() {
+    document.addEventListener('keydown', function (e) {
+        if (e.code === 'ArrowUp') {
+
+        }
+    });
+
     return (
         <div className="game">
             <Board/>
@@ -11,6 +17,7 @@ function App() {
 
 function Board() {
     const [bodyPosition, setBodyPosition] = useState([50, 51, 52, 53]);
+    const [direction, setDirection] = useState('right');
 
     const squares = Array(100).fill(null).map((item, index) => {
          return <Square body={bodyPosition.indexOf(index) !== -1} num={index + 1}/>;
