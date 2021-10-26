@@ -10,22 +10,22 @@ function App() {
 }
 
 function Board() {
-    const [head, setHead] = useState(1);
-    const [direction, setDirection] = useState('left');
-    const squares = Array(100).fill('').map(
-        (item, index) => <Square num={index + 1} head={index === head} />
-    );
+    const [bodyPosition, setBodyPosition] = useState([50, 51, 52, 53]);
 
-    function headAction(num) {
-        if (++num > 100) {
-            num = 1;
-        }
+    const squares = Array(100).fill(null).map((item, index) => {
+         return <Square body={bodyPosition.indexOf(index) !== -1} num={index + 1}/>;
+    });
 
-        return num;
+    function calculateBodyPosition(bodyPosition) {
+        return bodyPosition.map((item) => {
+            item = ++item > 100 ? 1 : item;
+
+            return item;
+        });
     }
 
     useEffect(() => {
-        setTimeout(() => setHead(headAction(head)), 100)
+        setTimeout(() => setBodyPosition(calculateBodyPosition(bodyPosition)), 100)
     });
 
     return (
@@ -36,7 +36,7 @@ function Board() {
 }
 
 function Square(props) {
-    const className = `game__square ${props.head ? 'game__square--head' : ''}`;
+    const className = `game__square ${props.body ? 'game__square--head' : ''}`;
 
     return <div className={className} data-index={props.num}></div>
 }
